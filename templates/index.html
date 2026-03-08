@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نظام المسار الدراسي الذكي | الموجه الخبير</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Cairo:wght@400;600&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Main Content Stage -->
+        <main class="main-stage">
+            <!-- Left Column: Interaction -->
+            <section class="glass-card primary-card">
+                <header>
+                    <h1 class="logo">Edu<span class="highlight">Path</span> AI</h1>
+                    <p class="subtitle">الموجه الذكي للمسار الدراسي</p>
+                </header>
+
+                <!-- 1. Intro View -->
+                <div id="intro" class="view">
+                    <h1>اكتشف مستقبلك الدراسي</h1>
+                    <p>نظام خبير يعتمد على الذكاء الاصطناعي لتوجيهك نحو المسار الأكاديمي أو الفني الأمثل بناءً على ميولك
+                        ودرجاتك.</p>
+                    <div class="actions">
+                        <button id="start-btn" class="primary-btn">ابدأ جلسة الاستدلال</button>
+                        <button id="goal-btn" class="secondary-btn"
+                            style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: white; padding: 14px 28px; border-radius: 20px; cursor: pointer; margin-top:20px;">التحقق
+                            من هدف معين</button>
+                    </div>
+                </div>
+
+                <!-- 2. Question View -->
+                <div id="question-card" class="view hidden">
+                    <div class="progress-container">
+                        <div id="progress" class="progress-bar"></div>
+                    </div>
+                    <h2 id="question-text" style="margin-top:20px;">جاري تحضير السؤال...</h2>
+                    <div id="options" class="options-grid" style="margin-top:30px;">
+                        <!-- Options injected by JS -->
+                    </div>
+                </div>
+
+                <!-- 3. Goal Selection View -->
+                <div id="goal-view" class="view hidden">
+                    <h2>حدد هدفك الدراسي</h2>
+                    <p>اختر التخصص الذي تطمح إليه لنقوم بتحليل مدى ملائمتك له.</p>
+                    <select id="goal-select" class="custom-select">
+                        <option value="هندسة (Engineering)">هندسة (Engineering)</option>
+                        <option value="أحياء / طب (Biology / Medicine)">أحياء / طب (Biology / Medicine)</option>
+                        <option value="علوم حاسوب (Computer Science)">علوم حاسوب (Computer Science)</option>
+                        <option value="أدب إنجليزي / ترجمة (English Lit / Translation)">أدب إنجليزي / ترجمة (English Lit
+                            / Translation)</option>
+                        <option value="فنون وتصميم (Arts & Design)">فنون وتصميم (Arts & Design)</option>
+                        <option value="حقوق / علوم إنسانية (Law / Humanities)">حقوق / علوم إنسانية (Law / Humanities)
+                        </option>
+                        <option value="فني زراعي متطور (Agricultural Tech)">فني زراعي متطور (Agricultural Tech)</option>
+                        <option value="فني تجاري وإدارة مكتبية (Commercial)">فني تجاري وإدارة مكتبية (Commercial)
+                        </option>
+                        <option value="فني صناعي (Industrial/Mechanical)">فني صناعي (Industrial/Mechanical)</option>
+                        <option value="فني تصميم أزياء ومهارات نسوية">فني تصميم أزياء ومهارات نسوية</option>
+                        <option value="صيانة أجهزة ذكية وتقنيات حديثة">صيانة أجهزة ذكية وتقنيات حديثة</option>
+                    </select>
+                    <button id="verify-goal-btn" class="primary-btn">تحقق الآن</button>
+                </div>
+
+                <!-- 4. Result View -->
+                <div id="result-card" class="view hidden">
+                    <div class="result-icon" style="font-size: 4rem; margin-bottom: 20px;">✨</div>
+                    <div class="recommendation-badge" id="recommendation-text"
+                        style="margin-bottom:10px; font-size: 1.5rem; color: #ff8c42;">--</div>
+                    <p id="advice-text"
+                        style="margin-bottom:30px; line-height: 1.6; color: rgba(255,255,255,0.8); max-width: 500px; text-align: center;">
+                    </p>
+                    <button onclick="window.location.reload()" class="primary-btn">بدء جلسة جديدة</button>
+                </div>
+            </section>
+
+            <!-- Right Column: Secondary Info -->
+            <aside class="secondary-column">
+                <div class="glass-card info-card">
+                    <h3
+                        style="margin-bottom:15px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom:10px;">
+                        آلية الاستدلال</h3>
+                    <ul id="explanations-list">
+                        <!-- Explanations injected by JS -->
+                        <li style="font-size: 0.9rem; color: rgba(255,255,255,0.6);">ابدأ الجلسة لتظهر لك القواعد هنا.
+                        </li>
+                    </ul>
+                </div>
+                <div class="glass-card info-card" style="margin-top: 20px;">
+                    <h3
+                        style="margin-bottom:15px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom:10px;">
+                        سجل الاستنتاج (Logs)</h3>
+                    <div id="inference-logs"
+                        style="font-family: 'Courier New', monospace; font-size: 0.75rem; color: #00ff00; background: rgba(0,0,0,0.3); padding: 15px; border-radius: 10px; height: 150px; overflow-y: auto;">
+                        <p>> في انتظار بدء الجلسة...</p>
+                    </div>
+                </div>
+            </aside>
+        </main>
+    </div>
+
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+
+</html>
